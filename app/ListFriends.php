@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Sunra\PhpSimple\HtmlDomParser;
+
 class ListFriends extends Model
 {
     protected $table = "danh_sach_ban_chung";
@@ -17,15 +18,24 @@ class ListFriends extends Model
     protected $guarded = [];
 
     public $timestamps=false;
+
+
+    private $resultCrawlLogin;
+
+    function __construct(){
+        // echo "df"; die;
+    }
+
     public function getList()
     {
         $dom = $this->autoLogin();
-        echo $dom;die; 
-        $dom = $this->getDom("https://www.facebook.com/");
-        // Create DOM from string
-        $find = $dom->find('._5iyy',0)->children(1)->src;
-        echo $find;die;
-        dd($find);
+
+        // echo $dom;die; 
+        // $dom = $this->getDom("https://www.facebook.com/");
+        // // Create DOM from string
+        // $find = $dom->find('._5iyy',0)->children(1)->src;
+        // echo $find;die;
+        // dd($find);
     }
     public function getDom($url)
     {
@@ -51,26 +61,39 @@ class ListFriends extends Model
             'li'=> 'YBS0XauqMwdTfVaVx7T26JLY',
             'try_number'=> '0',
             'unrecognized_tries'=> '0',
-            'email'=> 'ti.284',
-            'pass'=> "baodenho'",
+            'email'=> '16520391@gm.uit.edu.vn',
+            'pass'=> "baodenho0",
             'login'=> 'Đăng nhập'
         );
         
-        // URL 
-        $url = 'https://mbasic.facebook.com/login/device-based/regular/login/?refsrc=https%3A%2F%2Fmbasic.facebook.com%2F&lwv=100&refid=8';
+        return $this->getCrawlUrl("https://mbasic.facebook.com/login/device-based/regular/login/", "GET");
+    }
+
+    private function getCrawlUrl($url,$method, $params = null){
+        //login fb
+        // $url = 'https://mbasic.facebook.com/login/device-based/regular/login/';
         
-        // Khởi tạo CURL
         $ch = curl_init($url);
         
-        // Thiết lập có return
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $post = null;
+
+        if($method == "POST"){
+            $post = count($params);
+        } else {
+            $post = false;
+        }
         
-        curl_setopt($ch, CURLOPT_POST, count($param));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+        curl_setopt($ch, CURLOPT_POST, $method);
+
+        if($method == "POST"){
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        }
         
         // Thiết lập sử dụng trình duyệt hiện tại
         curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-        curl_setopt($ch, CURLOPT_USERAGENT, "chrome");
+        curl_setopt( $ch, CURLOPT_USERAGENT, "chrome");
         curl_setopt( $ch, CURLOPT_HEADER, false );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         
@@ -79,5 +102,12 @@ class ListFriends extends Model
         curl_close($ch);
         
         return $result;
+    }
+
+    private function getParamsLogin(){
+
+        $arr =[];
+
+        return $arr;
     }
 }
