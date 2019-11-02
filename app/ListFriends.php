@@ -28,25 +28,18 @@ class ListFriends extends Model
 
     public function getList()
     {
-        $dom = $this->autoLogin();
-
+        echo $this->autoLogin();
+        die;
         // echo $dom;die; 
         // $dom = $this->getDom("https://www.facebook.com/");
         // // Create DOM from string
         // $find = $dom->find('._5iyy',0)->children(1)->src;
         // echo $find;die;
         // dd($find);
+        $dom = $this->getDom($dom);
     }
-    public function getDom($url)
+    public function getDom($data)
     {
-        $ch = curl_init($url);
-        curl_setopt( $ch, CURLOPT_POST, false );
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-        curl_setopt($ch, CURLOPT_USERAGENT, "chrome");
-        curl_setopt( $ch, CURLOPT_HEADER, false );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        $data = curl_exec( $ch );
-        curl_close($ch);
         $dom = HtmlDomParser::str_get_html($data);
 
         return $dom;
@@ -66,7 +59,13 @@ class ListFriends extends Model
             'login'=> 'Đăng nhập'
         );
         
-        return $this->getCrawlUrl("https://mbasic.facebook.com/login/device-based/regular/login/", "GET");
+        
+        $dom = $this->getCrawlUrl("https://mbasic.facebook.com/login/device-based/regular/login/", "GET");
+
+        $dom = $this->getDom($dom);
+
+        // $find = $dom->find('._5iyy',0)->children(1)->src;
+
     }
 
     private function getCrawlUrl($url,$method, $params = null){
