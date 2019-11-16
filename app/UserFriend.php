@@ -10,7 +10,7 @@ class UserFriend extends Model
     protected $table = "user_friend";
 
     protected $fillable = [
-        'id',
+        // 'id',
         'user_id',
         'friend_id',
         'relationship',

@@ -16,17 +16,17 @@ class ShortPathController extends Controller
 
     public function run(){
     	$arr = $this->userFriend->getArr();
-    	// dd($arr);
 
-    	$result = new Graph($arr);
+    	// $result = new Graph($arr);
+
+        $dest = new Graph($arr);
 
         // least number of hops between D and C
-        $result->breadthFirstSearch('1', '28');
-        // outputs:
-        // D to C in 3 hops
-        // D->E->F->C
+        $result = $dest->breadthFirstSearch('1', '5');
+        echo $dest->getLength($result). ' || '. $dest->getShortPath($result);
         echo "<br/>";
         
+    	dd($arr);
     }
 
     public function checkUnique(){

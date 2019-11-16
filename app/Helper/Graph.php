@@ -44,15 +44,18 @@ class Graph
           if (!empty($this->graph[$t])) {
               // for each adjacent neighbor
               foreach ($this->graph[$t] as $vertex) {
+                if(isset($this->visited[$vertex])){
                   if (!$this->visited[$vertex]) {
-                      // if not yet visited, enqueue vertex and mark
-                      // as visited
-                      $q->enqueue($vertex);
-                      $this->visited[$vertex] = true;
-                      // add vertex to current path
-                      $path[$vertex] = clone $path[$t];
-                      $path[$vertex]->push($vertex);
+                    
+                    // if not yet visited, enqueue vertex and mark
+                    // as visited
+                    $q->enqueue($vertex);
+                    $this->visited[$vertex] = true;
+                    // add vertex to current path
+                    $path[$vertex] = clone $path[$t];
+                    $path[$vertex]->push($vertex);
                   }
+                }
               }
           }
       }
