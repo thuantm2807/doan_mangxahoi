@@ -15,21 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('login', "UserController@getLogin")->name('login');
+Route::post('login', "UserController@postLogin");
 
-Route::group(['prefix' => 'admin'], function() {
+Route::get('logout', "UserController@logout")->name('logout');
 
+Route::group(['middleware' => 'custom.auth'], function() {
 
-    Route::get('login', "UserController@getLogin")->name('login');
-    Route::post('login', "UserController@postLogin");
-
-    Route::get('logout', "UserController@logout")->name('logout');
-
-    Route::group(['middleware' => 'custom.auth'], function() {
-
-        Route::get('/dashboard', 'HomeController@index')->name('home');
-    });
+    Route::get('/dashboard', 'HomeController@index')->name('home');
 });
-Route::get('get-list','ListFriendsController@getList');
-// Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+

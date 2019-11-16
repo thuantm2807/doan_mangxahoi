@@ -47,10 +47,6 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public static function checkType($email,$type){
-       return self::where('email',$email)->where('type',$type)->first();
-    }
-
     public static function updatePasswordByEmail($email,$oldPassword,$newPassword){
         $user = self::checkType($email,2);
 

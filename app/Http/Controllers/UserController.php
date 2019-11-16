@@ -28,11 +28,6 @@ class UserController extends Controller
     	$email = $request->email;
     	$password = $request->password;
 
-        $user = User::checkType($email,1);
-        if(!$user){
-            return back()->with('error','Login failed. Please recheck and try again.');
-        }
-
     	if( Auth::attempt(['email' => $email, 'password' =>$password])) {
     			return redirect()->route('home');
     	} else {

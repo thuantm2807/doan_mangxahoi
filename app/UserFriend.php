@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Website extends Model
+class UserFriend extends Model
 {
-    protected $table = "website";
+    protected $table = "user_friend";
 
     protected $fillable = [
         'id',
-        'name',
-        'url',
-        'image',
-        'status',
+        'user_id',
+        'friend_id',
+        'relationship',
         'created_at',
         'updated_at',
+        'status',
     ];
 
     protected $guarded = [];
