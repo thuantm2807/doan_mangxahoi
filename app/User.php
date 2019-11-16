@@ -47,18 +47,33 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public static function updatePasswordByEmail($email,$oldPassword,$newPassword){
-        $user = self::checkType($email,2);
-
-        if($user){
-            $check = Hash::check($oldPassword, $user->password);
-
-            if(!$check){
-                return false;
-            }
-
-            return $user->update(['password'=>bcrypt($newPassword)]);
-        }
-
+    public function maxId(){
+        return self::select("id")
+                    ->max("id");
     }
+
+    public function createSeed(){
+        $arr = $this->randArrInsert();
+
+        self::insert($arr);
+
+        return 1;
+    }    
+
+    private function randArrInsert(){
+        $arr = [];
+        for ($i=0; $i < 1; $i++) { 
+            $arr[] = [
+                'name' => "last name ".time(),
+                'first_name' => "first name ".time(),
+                'phone' => "0".mt_rand(000000000, 999999999),
+                'gender' => rand(1, 3),
+                'email' => time()."@gmail.com",
+                'password' => bcrypt("123456"),
+            ];
+        }
+        return $arr;
+    }
+
+
 }
