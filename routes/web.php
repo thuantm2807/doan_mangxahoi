@@ -25,4 +25,5 @@ Route::group(['middleware' => 'custom.auth'], function() {
     Route::get('/dashboard', 'HomeController@index')->name('home');
 });
 
+Route:: get('test', 'TestController@test');
 
