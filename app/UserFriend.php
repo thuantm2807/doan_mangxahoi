@@ -10,7 +10,7 @@ class UserFriend extends Model
     protected $table = "user_friend";
 
     protected $fillable = [
-        'id',
+        // 'id',
         'user_id',
         'friend_id',
         'relationship',
@@ -48,6 +48,26 @@ class UserFriend extends Model
         return $sumSave;
     }
 
+    public function createSeedV2(){
+        $getAll = $this->getAll();
+        $sumSave = 0;
+
+        foreach ($getAll as $value) {
+            try {
+                $arrSave = [           
+                'user_id' => $value->friend_id,
+                'friend_id' => $value->user_id,
+                'relationship' => 1
+            ];  
+            self::insert($arrSave);
+            $sumSave++;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+        return $sumSave;
+    }
+
     private function checkUnique($userId, $friendId){
         return self::select("id")
                     ->where("user_id",$userId)
@@ -57,8 +77,8 @@ class UserFriend extends Model
 
     private function randArrInsert($maxUserId){
         $arr = [];
-        // $maxUserId = 3;
-        for ($i=0; $i < 500; $i++) { 
+        // $maxUserId = 7;
+        for ($i=0; $i < 50; $i++) { 
             $userId = rand(1, $maxUserId);
 
             $friendId = rand(1, $maxUserId);

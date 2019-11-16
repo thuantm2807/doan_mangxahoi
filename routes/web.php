@@ -31,6 +31,7 @@ Route:: get('test', 'TestController@test');
  */
 Route::get('create-seed-user', 'SeedController@createUser');
 Route::get('create-seed-user-friend', 'SeedController@createUserFriend');
+Route::get('create-seed-user-friend-v2', 'SeedController@createUserFriendV2');
 
 Route::get('list-arr', "ShortPathController@run");
 

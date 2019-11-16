@@ -21,7 +21,7 @@ class ShortPathController extends Controller
     	$result = new Graph($arr);
 
         // least number of hops between D and C
-        $result->breadthFirstSearch('1', '28');
+        $result->breadthFirstSearch('1', '14');
         // outputs:
         // D to C in 3 hops
         // D->E->F->C
