@@ -25,4 +25,9 @@ Route::group(['middleware' => 'custom.auth'], function() {
     Route::get('/dashboard', 'HomeController@index')->name('home');
 });
 
+/**
+ * create seed db
+ */
+Route::get('create-seed-user', 'SeedController@createUser');
+Route::get('create-seed-user-friend', 'SeedController@createUserFriend');
 
