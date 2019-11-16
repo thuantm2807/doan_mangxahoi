@@ -75,5 +75,14 @@ class User extends Authenticatable implements JWTSubject
         return $arr;
     }
 
+    public function getAll(){
+        return self::where("status",1)
+                    ->get();
+    }
+
+    public function getById($id){
+        return self::find($id);
+    }
+
 
 }
