@@ -21,10 +21,9 @@ class SeedController extends Controller
     public function createUserFriend(UserFriend $userFriend){    	
     	// dd($arr);
     	$check = $userFriend->createSeed();
+    	
+    	return "created $check rows successfully";
 
-    	if($check == 1){
-    		return "created successfully";
-
-    	}
+    	
     }
 }
