@@ -62,7 +62,7 @@ class User extends Authenticatable implements JWTSubject
 
     private function randArrInsert(){
         $arr = [];
-        for ($i=0; $i < 1; $i++) { 
+        for ($i=0; $i < 15; $i++) { 
             $arr[] = [
                 'name' => "last name ".time(),
                 'first_name' => "first name ".time(),

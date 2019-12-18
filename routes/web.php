@@ -26,9 +26,15 @@ Route::group(['middleware' => 'custom.auth'], function() {
 
     Route::get('/me/{userId}', 'UserController@getWall')->name('getWall');
 
-    Route::get('get-post-by-user-id', 'PostController@getPostByUserId')->name('getPostByUserId');
 
+    //ajax
+    Route::get('get-post-by-user-id', 'PostController@getPostByUserId')->name('getPostByUserId');
+    Route::get('get-posts-by-list-friends', 'PostController@getPostsByListFriends')->name('getPostsByListFriends');
     Route::post('create-post', 'PostController@createPost')->name('createPost');
+
+    Route::get('check-friend','FriendController@getByPrimaryKey')->name('getByPrimaryKey');
+    Route::post('delete-friend','FriendController@deleteByPrimaryKey')->name('deleteByPrimaryKey');
+    Route::post('create-friend','FriendController@createByPrimaryKey')->name('createByPrimaryKey');
 });
 
 Route:: get('test', 'TestController@test');

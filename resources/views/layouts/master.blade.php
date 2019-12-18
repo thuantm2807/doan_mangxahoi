@@ -1,3 +1,6 @@
+@php
+  $auth = \Auth::user();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
    <head>

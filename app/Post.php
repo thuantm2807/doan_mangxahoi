@@ -40,6 +40,24 @@ class Post extends Model
                 ->get();
     }
 
+    public function getByArrUserId($arrUserId, $take, $skip){
+        return $this->select(
+                'post.id as post_id',
+                'description',
+                'like',
+                'share',
+                'post.created_at as post_created_at',
+                'users.name as name',
+                )
+                ->whereIn('user_id',$arrUserId)
+                ->where('post.status',1)
+                ->orderBy("post.id","desc")
+                ->join("users","users.id","user_id")
+                ->take($take)
+                ->skip($skip)
+                ->get();
+    }
+
     public function createByArr($arr){
         return $this->create($arr);
     }

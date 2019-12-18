@@ -30,7 +30,7 @@ class UserFriend extends Model
         }
 
         $arr = $this->randArrInsert($maxUserId);
-
+        // dd($arr);
         $sumSave = 0;
         foreach ($arr as $key => $value) {
             try {
@@ -39,6 +39,7 @@ class UserFriend extends Model
                 self::insert($arrSave);
                 $sumSave++;
             } catch (\Exception $e) {
+                \Log::info($e);
                 continue;
             }
         }
@@ -161,7 +162,39 @@ class UserFriend extends Model
         return $arrUserId;
     }
 
-    // public function getById($id){
-    //     return self::find($id);
-    // }
+    public function getByUserId($userId){
+        return $this->select(
+                    'friend_id'
+                )
+                ->where('user_id',$userId)
+                ->where('relationship',1)
+                ->where('status',1)
+                ->get();
+    }
+
+    public function formatQueryToArr($query){
+        $arr = [];
+        foreach ($query as $key => $value) {
+            $arr[] = $value->friend_id;
+        }
+        return $arr;
+    }
+
+    public function getByPrimaryKey($userId, $friendId){
+        return $this->where('user_id',$userId)
+                    ->where('friend_id',$friendId)
+                    ->where('status',1)
+                    ->first();
+    }
+
+    public function deleteByPrimaryKey($userId, $friendId){
+        return $this->where('user_id',$userId)
+                    ->where('friend_id',$friendId)
+                    ->where('status',1)
+                    ->delete();
+    }
+
+    public function createByArr($arr){
+        return $this->create($arr);
+    }
 }

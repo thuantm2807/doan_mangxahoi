@@ -9,3 +9,7 @@
 .load-post p img{
 	max-width: 100% !important;
 }
+
+.btn-load-more{
+	margin-bottom: 1em;
+}
