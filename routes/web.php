@@ -22,7 +22,13 @@ Route::get('logout', "UserController@logout")->name('logout');
 
 Route::group(['middleware' => 'custom.auth'], function() {
 
-    Route::get('/dashboard', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::get('/me/{userId}', 'UserController@getWall')->name('getWall');
+
+    Route::get('get-post-by-user-id', 'PostController@getPostByUserId')->name('getPostByUserId');
+
+    Route::post('create-post', 'PostController@createPost')->name('createPost');
 });
 
 Route:: get('test', 'TestController@test');

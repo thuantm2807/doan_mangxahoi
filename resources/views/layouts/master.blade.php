@@ -15,6 +15,10 @@
       <!-- Custom styles for this template-->
       <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
       <link href="{{ asset('admin/vendor/toastr/toastr.min.css') }}" rel="stylesheet">
+
+      <link href="{{ asset('admin/vendor/summernote/summernote-lite.css') }}" rel="stylesheet">
+
+      <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
       <!-- datatable css -->      
       @yield('styles')
    </head>
@@ -51,7 +55,7 @@
       <i class="fas fa-angle-up"></i>
       </a>
       
-      
+      @include("layouts.modal")
       <!-- Bootstrap core JavaScript-->
       <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
       <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -65,6 +69,11 @@
 
       <script src="{{ asset('admin/vendor/loadingModal/jquery.loadingModal.js') }}"></script>
       <script src="{{ asset('admin/vendor/loadingModal/run.js') }}"></script>
+
+      <script src="{{ asset('admin/vendor/summernote/summernote-lite.min.js') }}"></script>
+
+      <script src="{{ asset('js/functionjs.js') }}"></script>
+      <script src="{{ asset('js/eventjs.js') }}"></script>
   
       @yield('scripts')
       @include('layouts.message.message')

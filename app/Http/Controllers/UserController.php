@@ -8,6 +8,13 @@ use Auth;
 
 class UserController extends Controller
 {
+    private $user;
+    // private $user;
+
+    public function __construct(){
+        $this->user = new User;
+    }
+
     public function getLogin(){
     	if(Auth::check()){
     		return back();
@@ -39,5 +46,16 @@ class UserController extends Controller
 	   Auth::logout();
 	   return redirect()->route('login');
 	}
+
+
+    public function getWall($userId){
+        $user = $this->user->getById($userId);
+
+        $data = [
+            'user' => $user,
+        ];
+
+        return view("user.wall", $data);
+    }
 
 }
