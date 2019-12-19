@@ -22,11 +22,13 @@ class ShortPathController extends Controller
         $dest = new Graph($arr);
 
         // least number of hops between D and C
+
         $result = $dest->breadthFirstSearch('1', '5');
         echo $dest->getLength($result). ' || '. $dest->getShortPath($result);
+
         echo "<br/>";
         
-    	dd($arr);
+    	// dd($arr);
     }
 
     public function checkUnique(){

@@ -1,3 +1,6 @@
+@php
+$auth = \Auth::user();
+@endphp
 @extends('layouts.master')
 @section('title','Dashboard')
 @section('styles')
@@ -6,10 +9,10 @@
 @endsection
 @section('content')
 <div class="container-fluid">
-    <!-- Page Heading -->
-    {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{$user->name}}</h1>
+        <div class="div-follow">
+        </div>
     </div>
     <!- Content Row ->
     <div class="row">
@@ -86,11 +89,10 @@
                 </div>
             </div>
         </div>
-    </div> --}}
-    <!-- Content Row -->
+    </div>
     <div class="row">
         <div class="col-8 load-post">
-            <div class="card shadow mb-4">
+            {{-- <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">User name Post</h6>
                     <div class="dropdown no-arrow">
@@ -107,12 +109,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                    <div class="">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit obcaecati nisi cupiditate, atque aperiam omnis dolore placeat, dicta natus! Deleniti delectus dolorum cupiditate nesciunt eius odio nihil ratione sed suscipit.</p>
+                        <img width="100%" src="https://scontent.fsgn5-1.fna.fbcdn.net/v/t1.0-9/80805045_1431058923724488_3564410220992004096_n.jpg?_nc_cat=1&_nc_ohc=fsIO5BN-dZgAQnaRPPY6XsDTVNb_vZZ57K7bawEEoNP7agUCNC9v5BlVw&_nc_ht=scontent.fsgn5-1.fna&oh=3b919b973fc70de88c3d719051290edb&oe=5E7496FA" alt="">
                     </div>
                 </div>
-            </div>
-         
+            </div> --}}
         </div>
         <!-- Content Row -->
         <div class="col-4">
@@ -120,7 +122,7 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">People You May Know</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">List Friend</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -155,16 +157,36 @@
                 {{-- </div> --}}
         </div>
     </div>
-                <button class="btn btn-primary btn-load-more" user-id="{{$userId}}" url="{{ route('getPostsByListFriends') }}" page="1">Xem them</button>
+    <button class="btn btn-primary btn-load-more" user-id="{{$user->id}}" url="{{ route('getPostByUserId') }}" page="1">Xem them</button>
 </div>
 @endsection
 @section('scripts')
 <script>
 $(document).ready(function() {
-    var url = "{{ route('getPostsByListFriends') }}";
-    var userId = "{{$userId}}";
+    var token = "{{csrf_token()}}";
+    var url = "{{ route('getPostByUserId') }}";
+    var userId = "{{$user->id}}";
+    var urlCheckFriend = "{{ route('getByPrimaryKey') }}";
     getPostByUserId(url, userId, 0);
+
+
+    checkFriend(urlCheckFriend,"{{$auth->id}}", userId);
+
+    $(document).on("click", ".btn-create-friend", function(e) {
+        e.preventDefault();
+        var urlFriend = "{{ route('createByPrimaryKey') }}";
+        createAndDeleteFriend(token, urlFriend, userId);
+        checkFriend(urlCheckFriend,"{{$auth->id}}", userId);
+    });
+
+    $(document).on("click", ".btn-delete-friend", function(e) {
+        e.preventDefault();
+        var urlFriend = "{{ route('deleteByPrimaryKey') }}";
+        createAndDeleteFriend(token, urlFriend, userId);
+        checkFriend(urlCheckFriend,"{{$auth->id}}", userId);
+    });
 });
+//abc
 
 </script>
 @endsection

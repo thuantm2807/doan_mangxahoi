@@ -30,7 +30,7 @@ class UserFriend extends Model
         }
 
         $arr = $this->randArrInsert($maxUserId);
-
+        // dd($arr);
         $sumSave = 0;
         foreach ($arr as $key => $value) {
             try {
@@ -39,12 +39,33 @@ class UserFriend extends Model
                 self::insert($arrSave);
                 $sumSave++;
             } catch (\Exception $e) {
+                \Log::info($e);
                 continue;
             }
         }
         // dd($arr);
         
 
+        return $sumSave;
+    }
+
+    public function createSeedV2(){
+        $getAll = $this->getAll();
+        $sumSave = 0;
+
+        foreach ($getAll as $value) {
+            try {
+                $arrSave = [           
+                'user_id' => $value->friend_id,
+                'friend_id' => $value->user_id,
+                'relationship' => 1
+            ];  
+            self::insert($arrSave);
+            $sumSave++;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
         return $sumSave;
     }
 
@@ -57,8 +78,8 @@ class UserFriend extends Model
 
     private function randArrInsert($maxUserId){
         $arr = [];
-        // $maxUserId = 3;
-        for ($i=0; $i < 500; $i++) { 
+        // $maxUserId = 7;
+        for ($i=0; $i < 50; $i++) { 
             $userId = rand(1, $maxUserId);
 
             $friendId = rand(1, $maxUserId);
@@ -141,7 +162,39 @@ class UserFriend extends Model
         return $arrUserId;
     }
 
-    // public function getById($id){
-    //     return self::find($id);
-    // }
+    public function getByUserId($userId){
+        return $this->select(
+                    'friend_id'
+                )
+                ->where('user_id',$userId)
+                ->where('relationship',1)
+                ->where('status',1)
+                ->get();
+    }
+
+    public function formatQueryToArr($query){
+        $arr = [];
+        foreach ($query as $key => $value) {
+            $arr[] = $value->friend_id;
+        }
+        return $arr;
+    }
+
+    public function getByPrimaryKey($userId, $friendId){
+        return $this->where('user_id',$userId)
+                    ->where('friend_id',$friendId)
+                    ->where('status',1)
+                    ->first();
+    }
+
+    public function deleteByPrimaryKey($userId, $friendId){
+        return $this->where('user_id',$userId)
+                    ->where('friend_id',$friendId)
+                    ->where('status',1)
+                    ->delete();
+    }
+
+    public function createByArr($arr){
+        return $this->create($arr);
+    }
 }

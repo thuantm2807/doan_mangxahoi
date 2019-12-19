@@ -41,6 +41,7 @@ class Graph
       while (!$q->isEmpty() && $q->bottom() != $destination) {
           $t = $q->dequeue();
 
+
           if (!empty($this->graph[$t])) {
               // for each adjacent neighbor
               foreach ($this->graph[$t] as $vertex) {
