@@ -197,4 +197,24 @@ class UserFriend extends Model
     public function createByArr($arr){
         return $this->create($arr);
     }
+
+    // public function getNameAll(){
+    //     return $this->select(
+    //         // 'users.name as',
+    //         )
+    //         ->where("relationship",1)
+    //         ->where("user_friend.status",1)
+    //         ->join('users','users.id','user_friend.user_id')
+    //         ->join('users','users.id','user_friend.friend_id')
+    //         ->get();
+    // }
+    // 
+    
+    // public function joinUserId(){
+    //   return $this->hasOne('users', 'users.id', 'user_friend.user_id');
+    // }
+
+    // public function joinUserFriendId(){
+    //   return $this->hasOne('users', 'users.id', 'user_friend.friend_id');
+    // }
 }

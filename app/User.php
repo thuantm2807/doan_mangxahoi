@@ -84,5 +84,10 @@ class User extends Authenticatable implements JWTSubject
         return self::find($id);
     }
 
+    public function getNameById($id){
+        return $this->select('name')->find($id)['name'];
+        //echo $a->name; die;
+    }
+
 
 }
