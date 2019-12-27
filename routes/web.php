@@ -48,3 +48,6 @@ Route::get('create-seed-user-friend-v2', 'SeedController@createUserFriendV2');
 Route::get('list-arr', "ShortPathController@run");
 
 Route::get('check-unique', "ShortPathController@checkUnique");
+
+
+Route::get('export-excel',"ExportController@export");
