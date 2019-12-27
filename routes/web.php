@@ -50,4 +50,9 @@ Route::get('list-arr', "ShortPathController@run");
 Route::get('check-unique', "ShortPathController@checkUnique");
 
 
-Route::get('export-excel',"ExportController@export");
+Route::get('export-excel-direction-by-name',"ExportController@exportDirectionByName");
+Route::get('export-excel-direction-by-id',"ExportController@exportDirectionById");
+
+
+Route::get('export-excel-non-direction-by-name',"ExportController@exportNonDirectionByName");
+Route::get('export-excel-non-direction-by-id',"ExportController@exportNonDirectionById");

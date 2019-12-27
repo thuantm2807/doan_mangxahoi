@@ -1,0 +1,45 @@
+install.packages("igraph")
+library(igraph)
+
+data <- read.csv(file.choose(), header = FALSE)
+network <- graph.data.frame(data, directed = FALSE)
+plot.igraph(network, vertex.label.cex = .8, vertex.size = 5)
+
+///degree
+deg <- degree(network, mode="all")
+deg <- as.data.frame(deg)
+maxdeg <- max(degree(network, mode="all"))
+V(network)$name[degree(network, mode="all") == maxdeg]
+
+//betweeness 
+bwn <- betweenness(network,directed = FALSE)
+bwn <- as.data.frame(bwn)
+bwnmax <- max(betweenness(network, directed = FALSE))
+V(network)$name[betweenness(network, directed = FALSE) == bwnmax]
+
+//closeness
+clo <- closeness(network, mode="all")
+clo <- as.data.frame(clo)
+clo_max <- max(closeness(network, mode="all"))
+V(network)$name[closeness(network, mode="all") == clo_max]
+
+//common neighbor
+neighbor <- igraph::cocitation(network)
+View(neighbor)
+
+//jacard
+jacard <- igraph::similarity.jaccard(network)
+View(jacard)
+
+///ademicAdar
+adamic <- igraph::similarity.invlogweighted(network)
+View(adamic)
+
+//Preferential attachment
+degree <- igraph::degree(network)
+prefer <- outer(degree, degree)
+View(prefer)
+
+//comunity detection
+cnet <- cluster_edge_betweenness(network)
+plot(cnet, network, vertex.size = 5, vertex.label.cex = .30)
