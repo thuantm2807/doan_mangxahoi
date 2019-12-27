@@ -198,6 +198,14 @@ class UserFriend extends Model
         return $this->create($arr);
     }
 
+    // public function checkDirection($userId, $friendId){
+    //     return $this->select('user_id','friend_id')
+    //                 ->where('user_id',$friendId)
+    //                 ->where('friend_id',$userId)
+    //                 ->where('relationship',1)
+    //                 ->first();
+    // }
+
     // public function getNameAll(){
     //     return $this->select(
     //         // 'users.name as',

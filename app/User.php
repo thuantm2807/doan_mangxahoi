@@ -61,11 +61,62 @@ class User extends Authenticatable implements JWTSubject
     }    
 
     private function randArrInsert(){
+        $firstName = [
+            'Nguyễn',
+            'Trần',
+            'Lê',
+            'Phạm',
+            'Phan',
+            'Đặng',
+            'Bùi',
+            'Đỗ',
+            'Hồ',
+            'Ngô',
+            'Dương',
+            'Lý',
+        ];   
+
+        $lastName = [
+            'Anh',
+            'Đức',
+            'Trang',
+            'Hoàng',
+            'Phạm',
+            'Việt',
+            'Dũng',
+            'Giang',
+            'Hiếu',
+            'Hiệp',
+            'Thảo',
+            'Ngọc',
+            'Huy',
+            'Ngọc',
+            'Tài',
+            'Minh Ngọc',
+            'Quốc Ngọc',
+            'Điệp Chi',
+            'Vũ Trí Đức',
+            'Thị Bích Ngọc',
+            'Xuân Minh',
+            'Ngọc Quỳnh Như',
+            'Hoàng Lâm',
+            'Tiến Long',
+            'Quang Tín',
+            'Hải Hà An',
+            'Nam Khánh',
+            'Phương Linh',
+        ];         
+
+
+
         $arr = [];
         for ($i=0; $i < 15; $i++) { 
+            $fName = array_random($firstName);
+            $lName = array_random($lastName);
+
             $arr[] = [
-                'name' => "last name ".time(),
-                'first_name' => "first name ".time(),
+                'name' => $fName." ".$lName,
+                'first_name' => $fName,
                 'phone' => "0".mt_rand(000000000, 999999999),
                 'gender' => rand(1, 3),
                 'email' => time()."@gmail.com",

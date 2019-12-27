@@ -1,0 +1,60 @@
+install.packages("igraph")
+library(igraph)
+
+data <- read.csv(file.choose(), header = FALSE)
+network <- graph.data.frame(data, directed = TRUE)
+plot.igraph(network, vertex.label.cex = .8, vertex.size = 5, edge.arrow.size = .4)
+
+///degree
+deg <- degree(network, mode="all")
+deg <- as.data.frame(deg)
+maxdeg <- max(degree(network, mode="all"))
+V(network)$name[degree(network, mode="all") == maxdeg]
+
+deg <- degree(network, mode="in")
+deg <- as.data.frame(deg)
+maxdeg <- max(degree(network, mode="in"))
+V(network)$name[degree(network, mode="in") == maxdeg]
+
+deg <- degree(network, mode="out")
+deg <- as.data.frame(deg)
+maxdeg <- max(degree(network, mode="out"))
+V(network)$name[degree(network, mode="out") == maxdeg]
+
+//betweeness 
+bwn <- betweenness(network,directed = FALSE)
+bwn <- as.data.frame(bwn)
+bwnmax <- max(betweenness(network, directed = FALSE))
+V(network)$name[betweenness(network, directed = FALSE) == bwnmax]
+
+> bwn <- betweenness(network,directed = TRUE)
+> bwn <- as.data.frame(bwn)
+> bwnmax <- max(betweenness(network, directed = TRUE))
+> V(network)$name[betweenness(network, directed = TRUE) == bwnmax]
+
+//closeness
+clo <- closeness(network, mode="all")
+clo <- as.data.frame(clo)
+clo_max <- max(closeness(network, mode="all"))
+V(network)$name[closeness(network, mode="all") == clo_max]
+
+//common neighbor
+neighbor <- igraph::cocitation(network)
+View(neighbor)
+
+//jacard
+jacard <- igraph::similarity.jaccard(network)
+View(jacard)
+
+///ademicAdar
+adamic <- igraph::similarity.invlogweighted(network)
+View(adamic)
+
+//Preferential attachment
+degree <- igraph::degree(network)
+prefer <- outer(degree, degree)
+View(prefer)
+
+//comunity detection
+cnet <- cluster_edge_betweenness(network)
+plot(cnet, network, vertex.size = 5, vertex.label.cex = .30)
